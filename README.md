@@ -21,6 +21,8 @@ The trakt.tv API requires each app to be registered. The registration process pr
 
 `https://trakt.tv/oauth/applications`
 
+When registering the application, use the redirect URI specified for device authentication.
+
 Once the app is registered, the `trakt-setup.sh` script can be used to store the two aforementioned keys in the `api-client` file. This will allow subsequent communication with the trakt.tv API to succeed.
 
 `$ ./trakt-setup.sh`
@@ -30,7 +32,7 @@ Note that the scripts do not provide any OAuth endpoint of their own, hence "PIN
 Authenticate with PIN code
 --------------------------
 
-To associate the scripts with a specific trakt.tv user account, we now perform a manual OAuth handshake using a PIN code. The PIN code can be obtained by heading over to the following page.
+To associate the scripts with a specific trakt.tv user account, we now perform a manual OAuth handshake using a PIN code. The PIN code can be obtained by heading over to the following page (the app id can be found in the URL when viewing your application page).
 
 `https://trakt.tv/pin/<your-app-id>`
 
