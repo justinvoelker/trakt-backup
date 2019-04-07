@@ -1,3 +1,4 @@
 api-client
 auth-*
 backup-*
+*.log
