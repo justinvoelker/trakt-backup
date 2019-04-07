@@ -53,6 +53,8 @@ Now that authentication is done, the `trakt-backup.sh` script is ready to downlo
 
 This will create a `backup-<your-username>-<timestamp>.tar.gz` archive containing your personal data in JSON format. Again it is recommended to configure a cron job to perform backups as described below.
 
+By default, the timestamp in the filename will be formatted as YYYYMMDD. Specifying an optional `-d` or `--date-format` parameter allows for custom formatting of the timestamp. For example, to name the created filename with only the year and month, add `-d %Y%m` to the backup command.
+
 Configure cron jobs
 -------------------
 

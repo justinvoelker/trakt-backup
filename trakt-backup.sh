@@ -39,6 +39,10 @@ while [[ $# > 1 ]]; do
       USERNAME="$2"
       shift
       ;;
+    -d|--date-format)
+      DATE_FORMAT="$2"
+      shift
+      ;;
     *)
       echo "Unknown option: $1"
       exit 1
@@ -51,6 +55,11 @@ done
 if [ -z "$USERNAME" ]; then
   echo "No username has been provided."
   exit 1
+fi
+
+# Set default date format is not has been provided.
+if [ -z "$DATE_FORMAT" ]; then
+  DATE_FORMAT=%Y%m%d
 fi
 
 # The API client ID we are using to connect.
@@ -78,7 +87,7 @@ fi
 TMP_DIR=$(mktemp -d)
 
 # Output will be packed into archive.
-TIMESTAMP=$(date -u +%Y%m%d)
+TIMESTAMP=$(date -u +$DATE_FORMAT)
 OUT_FILE="$BASE/backup-$USERNAME-$TIMESTAMP.tar.gz"
 OUT_DIR="$TMP_DIR/backup-$USERNAME-$TIMESTAMP"
 mkdir "$OUT_DIR"
