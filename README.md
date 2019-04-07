@@ -5,6 +5,15 @@ This is a collection of simplistic shell scripts that allows to create backups o
 
 The following are brief instructions of how to get started with these scripts. The aim is to have a running setup with scheduled jobs that perform regular backups at the end.
 
+Quick setup
+-----------
+
+* Create new Trakt app at `https://trakt.tv/oauth/applications`
+* Execute `./trakt-setup.sh`
+* Obtain an new PIN at `https://trakt.tv/pin/<your-app-id>`
+* Execute `./trakt-auth.sh -u <your-username> -c <the-pin-code>`
+* Setup cron jobs for automation backup and authentication
+
 Create a new API app
 --------------------
 
