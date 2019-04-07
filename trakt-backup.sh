@@ -29,8 +29,6 @@ history/seasons
 history/episodes
 collection/movies
 collection/shows
-watched/movies
-watched/shows
 comments/all
 followers
 following
