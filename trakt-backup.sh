@@ -13,6 +13,9 @@
 BASE="$(cd "$(dirname "$0")" && pwd)"
 CLIENT_FILE="$BASE/api-client"
 
+# Create backup directory
+mkdir -p "$BASE/backup"
+
 # The list of data buckets to be downloaded.
 read -d ' ' BACKUP_PATHS <<EOF
 watchlist/movies
@@ -88,7 +91,7 @@ TMP_DIR=$(mktemp -d)
 
 # Output will be packed into archive.
 TIMESTAMP=$(date -u +$DATE_FORMAT)
-OUT_FILE="$BASE/backup-$USERNAME-$TIMESTAMP.tar.gz"
+OUT_FILE="$BASE/backup/backup-$USERNAME-$TIMESTAMP.tar.gz"
 OUT_DIR="$TMP_DIR/backup-$USERNAME-$TIMESTAMP"
 mkdir "$OUT_DIR"
 
