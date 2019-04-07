@@ -20,11 +20,11 @@ your own app.
 
   https://trakt.tv/oauth/applications
 
-Once the app is registered, the {setup.sh} script can be used to store
+Once the app is registered, the {trakt-setup.sh} script can be used to store
 the two aforementioned keys in the {api-client} file. This will allow
 subsequent communication with the trakt.tv API to succeed.
 
-  $ ./setup.sh
+  $ ./trakt-setup.sh
 
 Note that the scripts do not provide any OAuth endpoint of their own,
 hence "PIN Authentication" has to be selected for the app.
