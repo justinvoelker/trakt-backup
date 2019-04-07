@@ -25,8 +25,6 @@ ratings/seasons
 ratings/episodes
 history/movies
 history/shows
-history/seasons
-history/episodes
 collection/movies
 collection/shows
 comments/all
