@@ -66,3 +66,10 @@ Setting up the scripts to run periodically is the best way to make sure that reg
 ```
 
 This will run the backup job once a week and the authentication refresh once a month. You now have a setup performing periodic backups of your personal trakt.tv data. Have fun!
+
+Experimental - data restore
+------------
+
+The `trakt-restore.sh` script can restore collections and watched history. Manually invoking the script as follows will restore the specified backup file. *NOTE* The restore process completely deletes the watched history of your entire collection. This is necessary to prevent duplicate watched entries from being created when the backup file is restored.
+
+`$ ./trakt-restore.sh -u <your-username> -f <backup-file-to-restore>`
