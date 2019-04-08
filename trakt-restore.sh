@@ -24,6 +24,10 @@ while [[ $# > 1 ]]; do
       RESTORE_FILE="$2"
       shift
       ;;
+    -c|--clear-history)
+      CLEAR_HISTORY="$2"
+      shift
+      ;;
     *)
       echo "Unknown option: $1"
       exit 1
@@ -38,10 +42,15 @@ if [ -z "$USERNAME" ]; then
   exit 1
 fi
 
-# Check that a restore file has been preovided
+# Check that a restore file has been provided
 if [ -z "$RESTORE_FILE" ]; then
   echo "No restore file has been provided."
   exit 1
+fi
+
+# Check if clear history has been specified
+if [ -z "$CLEAR_HISTORY" ]; then
+  CLEAR_HISTORY=false
 fi
 
 # The API client ID we are using to connect.
@@ -72,20 +81,22 @@ TMP_DIR=$(mktemp -d)
 tar -x -z -f "$RESTORE_FILE" -C "$TMP_DIR" --strip 1
 
 # Clear Trakt history to prevent duplicate watches
-HISTORY_IDS=$(curl --silent\
+if [[ "$CLEAR_HISTORY" == true ]]; then
+  HISTORY_IDS=$(curl --silent\
+      --header "Authorization: Bearer $AUTH_TOKEN" \
+      --header "Content-Type: application/json" \
+      --header "trakt-api-version: 2" \
+      --header "trakt-api-key: $CLIENT_ID" \
+      "https://api.trakt.tv/users/$USERNAME/history/?page=1&limit=999999" | grep -oP '(?<=\"id":).*?(?=,)' | paste -sd "," -)
+  curl --silent \
     --header "Authorization: Bearer $AUTH_TOKEN" \
     --header "Content-Type: application/json" \
     --header "trakt-api-version: 2" \
     --header "trakt-api-key: $CLIENT_ID" \
-    "https://api.trakt.tv/users/$USERNAME/history/?page=1&limit=999999" | grep -oP '(?<=\"id":).*?(?=,)' | paste -sd "," -)
-curl --silent \
-  --header "Authorization: Bearer $AUTH_TOKEN" \
-  --header "Content-Type: application/json" \
-  --header "trakt-api-version: 2" \
-  --header "trakt-api-key: $CLIENT_ID" \
-  --data "{\"ids\":[$HISTORY_IDS]}" \
-  --output restore-remove.log \
-  "https://api.trakt.tv/sync/history/remove" -X POST
+    --data "{\"ids\":[$HISTORY_IDS]}" \
+    --output restore-remove.log \
+    "https://api.trakt.tv/sync/history/remove" -X POST
+fi
 
 # Restore collections
 COLLECTION_MOVIES=$(<$TMP_DIR/collection_movies.json)

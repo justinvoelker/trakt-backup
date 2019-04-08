@@ -70,6 +70,8 @@ This will run the backup job once a week and the authentication refresh once a m
 Experimental - data restore
 ------------
 
-The `trakt-restore.sh` script can restore collections and watched history. Manually invoking the script as follows will restore the specified backup file. *NOTE* The restore process completely deletes the watched history of your entire collection. This is necessary to prevent duplicate watched entries from being created when the backup file is restored.
+The `trakt-restore.sh` script can restore collections and watch history. Manually invoking the script as follows will restore the specified backup file.
+
+*NOTE* Restoring a watch history is an additive process. Executing the restore script more than once will duplicate the watch history of items being restored. To account for this, the `trakt-restore.sh` script includes a `-c` or `--clear-history` argument which, when set to `true` will completely erase _all_ watch history of the Trakt account before executing the restore. Only clear your watch history if you are sure you want to erase your entire watch history and restore it from the file.
 
 `$ ./trakt-restore.sh -u <your-username> -f <backup-file-to-restore>`
