@@ -98,7 +98,7 @@ mkdir "$OUT_DIR"
 # Download all relevant data into files.
 for BACKUP_PATH in $BACKUP_PATHS; do
   URL="https://api-v2launch.trakt.tv/users/$USERNAME/$BACKUP_PATH"
-  FILE=$(echo $BACKUP_PATH | sed -e 's|\?.*||g' | sed -e 's|/|_|g')
+  FILE=$(echo $BACKUP_PATH | sed -e 's|?.*||g' | sed -e 's|/|_|g')
   curl --silent\
     --header "Authorization: Bearer $AUTH_TOKEN" \
     --header "Content-Type: application/json" \
